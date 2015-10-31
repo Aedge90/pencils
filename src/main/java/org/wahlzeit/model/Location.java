@@ -10,5 +10,6 @@ public class Location {
 	/**
 	 * The corresponding coordinate
 	 */
-	public Coordinate coordinate;
+	protected Coordinate coordinate;
+
 }
