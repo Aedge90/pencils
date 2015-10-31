@@ -27,9 +27,7 @@ public class CoordinateTest {
 	
 	@Test
 	public void testGetDistance() {
-		assertEquals("should be 29.7", 29.7, firstCoord.getDistance(secondCoord).getLatitude(), 0.1);
-		assertEquals("should be 30.6", 30.6, firstCoord.getDistance(secondCoord).getLongitude(), 0.1);
-	}
+		assertEquals("should be 60.3", 60.3, firstCoord.getDistance(secondCoord), 0.1);	}
 	
 	@Test
 	public void testGetLatitudinalDistance() {

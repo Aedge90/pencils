@@ -20,27 +20,49 @@
 
 package org.wahlzeit.model;
 
+import org.wahlzeit.services.DataObject;
+
 /**
  * The Coordinate class represents a Coordinate, where a Photo was taken
  */
 
 
-public class Coordinate {
+public class Coordinate extends DataObject {
 
-	private double latitude;
-	private double longitude;
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Latitude in degrees
+	 * Valid values: -90 (south pole) to 90 (north pole)
+	 */
+	private final double latitude;
+	
+	/**
+	 * Longitude in degrees
+	 * Valid values: -180 to +180 (+ = Ost, - = West, 0 = Greenwich)
+	 */
+	private final double longitude;
 	
 	public Coordinate(double latitude, double longitude){
-		
+		if (latitude > 90 || latitude < -90) {
+			throw new IllegalArgumentException("Latitude value is not valid. Range:[-90,90]");
+		}
+		if (longitude > 180 || longitude < -180) {
+			throw new IllegalArgumentException("Longitude value is not valid. Range:[-180,180]");	
+		}
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}
 	
-	public Coordinate getDistance(Coordinate coord) {
+	public double getDistance(Coordinate coord) {
 		if(coord == null){
 			throw new IllegalArgumentException("Argument was null");
 		}
-		return new Coordinate(getLatitudinalDistance(coord),getLongitudinalDistance(coord));
+		return getLatitudinalDistance(coord) + getLongitudinalDistance(coord);
 	}
 	
 	public double getLatitudinalDistance(Coordinate coord) {
@@ -64,4 +86,37 @@ public class Coordinate {
 	public double getLongitude(){
 		return longitude;
 	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(latitude);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(longitude);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Coordinate other = (Coordinate) obj;
+		if (Double.doubleToLongBits(latitude) != Double
+				.doubleToLongBits(other.latitude))
+			return false;
+		if (Double.doubleToLongBits(longitude) != Double
+				.doubleToLongBits(other.longitude))
+			return false;
+		return true;
+	}
+	
 }

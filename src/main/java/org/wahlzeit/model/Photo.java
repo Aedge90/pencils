@@ -103,7 +103,7 @@ public class Photo extends DataObject {
 	/**
 	 *
 	 */
-	protected Coordinate location;
+	public Location location;
 	
 	/**
 	 *
