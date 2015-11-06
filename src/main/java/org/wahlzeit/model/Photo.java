@@ -38,7 +38,7 @@ import java.util.Map;
  * A photo represents a user-provided (uploaded) photo.
  */
 @Entity
-public class Photo extends DataObject {
+public abstract class Photo extends DataObject {
 
 	/**
 	 *
@@ -421,6 +421,21 @@ public class Photo extends DataObject {
 	 */
 	public void setNoNewPraise() {
 		noVotesAtLastNotification = noVotes;
+		incWriteCount();
+	}
+	
+	/**
+	 * @methodtype get
+	 */
+	public Location getLocation(){
+		return location;
+	}
+
+	/**
+	 * @methodtype set
+	 */
+	public void setLocation(Location value) {
+		this.location = value;
 		incWriteCount();
 	}
 }

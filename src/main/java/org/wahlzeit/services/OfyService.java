@@ -3,11 +3,15 @@ package org.wahlzeit.services;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
+
 import org.wahlzeit.model.Administrator;
 import org.wahlzeit.model.Client;
+import org.wahlzeit.model.Coordinate;
 import org.wahlzeit.model.Globals;
 import org.wahlzeit.model.Guest;
+import org.wahlzeit.model.Location;
 import org.wahlzeit.model.Moderator;
+import org.wahlzeit.model.PencilPhoto;
 import org.wahlzeit.model.Photo;
 import org.wahlzeit.model.PhotoCase;
 import org.wahlzeit.model.Tag;
@@ -35,6 +39,9 @@ public class OfyService {
 		factory().register(Guest.class);
 		factory().register(PhotoCase.class);
 		factory().register(ImageWrapper.class);
+		factory().register(PencilPhoto.class);
+		factory().register(Location.class);
+		factory().register(Coordinate.class);
 	}
 
 	public static Objectify ofy() {

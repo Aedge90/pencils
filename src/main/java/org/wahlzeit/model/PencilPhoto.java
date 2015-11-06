@@ -1,5 +1,8 @@
 package org.wahlzeit.model;
 
+import com.googlecode.objectify.annotation.Subclass;
+
+@Subclass
 public class PencilPhoto extends Photo {
 
 	/**
@@ -13,6 +16,15 @@ public class PencilPhoto extends Photo {
 	
 	private String pencilColor;
 	
+	
+	public PencilPhoto() {
+		super();
+	}
+	
+	public PencilPhoto(PhotoId id) {
+		super(id);
+	}
+
 	/**
 	 * @methodtype set
 	 */

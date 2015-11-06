@@ -16,7 +16,7 @@ public class CoordinateTest {
 	public final ExpectedException exception = ExpectedException.none();
 	
 	protected Coordinate firstCoord;
-	protected Coordinate secondCoord = new Coordinate(10.3, 90.6);
+	protected Coordinate secondCoord;
 
 	@Before
 	public void setUp() {
@@ -27,7 +27,9 @@ public class CoordinateTest {
 	
 	@Test
 	public void testGetDistance() {
-		assertEquals("should be 60.3", 60.3, firstCoord.getDistance(secondCoord), 0.1);	}
+	   assertEquals(4471.251980333598, firstCoord.getDistance(secondCoord), 0.1);
+	   assertEquals(4471.251980333598, secondCoord.getDistance(firstCoord), 0.1);
+	}
 	
 	@Test
 	public void testGetLatitudinalDistance() {

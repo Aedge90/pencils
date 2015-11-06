@@ -21,14 +21,28 @@
 package org.wahlzeit.model;
 
 import org.wahlzeit.services.DataObject;
+import com.googlecode.objectify.annotation.Entity;
+import com.google.appengine.api.datastore.Key;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Parent;
+import org.wahlzeit.services.ObjectManager;
 
 /**
  * The Coordinate class represents a Coordinate, where a Photo was taken
  */
 
-
+@Entity
 public class Coordinate extends DataObject {
-
+	
+    @Id
+    String objectifyId = "idCoordinate";
+    @Parent
+    Key parent = ObjectManager.applicationRootKey;
+	
+	/** 
+	 * The radius of earth in kilometers
+	 */
+    private final double EARTH_RADIUS = 6371;
 
 	/**
 	 * 
@@ -43,28 +57,45 @@ public class Coordinate extends DataObject {
 	
 	/**
 	 * Longitude in degrees
-	 * Valid values: -180 to +180 (+ = Ost, - = West, 0 = Greenwich)
+	 * Valid values: -180 (180 not included) to +180 (+ = Ost, - = West, 0 = Greenwich)
 	 */
 	private final double longitude;
+	
+	
+	
 	
 	public Coordinate(double latitude, double longitude){
 		if (latitude > 90 || latitude < -90) {
 			throw new IllegalArgumentException("Latitude value is not valid. Range:[-90,90]");
 		}
-		if (longitude > 180 || longitude < -180) {
+		if (longitude > 180 || longitude <= -180) {
 			throw new IllegalArgumentException("Longitude value is not valid. Range:[-180,180]");	
 		}
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}
 	
+	 /**
+     * Gets the distance between this Coordiante and coord in kilometers
+     * @throws IllegalArgumentException Thrown if coord is null
+     * @methodtype get
+     */
 	public double getDistance(Coordinate coord) {
 		if(coord == null){
 			throw new IllegalArgumentException("Argument was null");
 		}
-		return getLatitudinalDistance(coord) + getLongitudinalDistance(coord);
+		
+		return EARTH_RADIUS * Math.acos(
+				(Math.sin(Math.toRadians(this.getLatitude())) * Math.sin(Math.toRadians(coord.getLatitude()))) +
+				(Math.cos(Math.toRadians(this.getLatitude())) * Math.cos(Math.toRadians(coord.getLatitude())) *
+						Math.cos(Math.toRadians(Math.abs(coord.getLongitude() - this.getLongitude())))) 
+				) ;
 	}
 	
+	/**
+     * Calculates the latitudinal distance
+     * @methodtype get
+     */
 	public double getLatitudinalDistance(Coordinate coord) {
 		if(coord == null){
 			throw new IllegalArgumentException("Argument was null");
@@ -72,6 +103,10 @@ public class Coordinate extends DataObject {
 		return Math.abs(coord.latitude - latitude);
 	}
 	
+	/**
+     * Calculates the longitudinal distance
+     * @methodtype get
+     */
 	public double getLongitudinalDistance(Coordinate coord) {
 		if(coord == null){
 			throw new IllegalArgumentException("Argument was null");
