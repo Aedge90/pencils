@@ -44,7 +44,7 @@ public class SphericCoordinate extends DataObject implements Coordinate {
 	/** 
 	 * The radius of earth in kilometers
 	 */
-    private static final double EARTH_RADIUS = 6371;
+    public static final double EARTH_RADIUS = 6371;
 
 	/**
 	 * 
@@ -79,6 +79,9 @@ public class SphericCoordinate extends DataObject implements Coordinate {
 		}
 		if (longitude > 180 || longitude <= -180) {
 			throw new IllegalArgumentException("Longitude value is not valid. Range:[-180,180]");	
+		}
+		if (radius < 0) {
+			throw new IllegalArgumentException("Radius value is not valid. Range:[0,infinity[");	
 		}
 		this.latitude = latitude;
 		this.longitude = longitude;
@@ -135,6 +138,10 @@ public class SphericCoordinate extends DataObject implements Coordinate {
 				.doubleToLongBits(coordSpheric.longitude)){
 			return false;
 		}
+		if (Double.doubleToLongBits(radius) != Double
+				.doubleToLongBits(coordSpheric.radius)){
+			return false;
+		}
 		return true;
 	}
 	
@@ -180,6 +187,8 @@ public class SphericCoordinate extends DataObject implements Coordinate {
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		temp = Double.doubleToLongBits(longitude);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(radius);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
@@ -198,7 +207,12 @@ public class SphericCoordinate extends DataObject implements Coordinate {
 		if (Double.doubleToLongBits(longitude) != Double
 				.doubleToLongBits(other.longitude))
 			return false;
+		if (Double.doubleToLongBits(radius) != Double
+				.doubleToLongBits(other.radius))
+			return false;
 		return true;
 	}
+
+
 
 }

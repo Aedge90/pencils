@@ -67,23 +67,23 @@ public class CartesianCoordinate extends DataObject implements Coordinate{
 	public boolean isEqual(Coordinate coord) {
 		if (coord == null)
 			return false;
-		SphericCoordinate thisCoordSpheric = this.toSpheric();
-		SphericCoordinate coordSpheric;
-		if(coord.getClass().equals(CartesianCoordinate.class)){
-			//this is an instance of CartesianCoordinate so casting will work.
-			CartesianCoordinate coordCartesian = (CartesianCoordinate) coord;
-			//convert this Coordinate to SphericCoordinate
-			coordSpheric = coordCartesian.toSpheric();
-		}else{
+		CartesianCoordinate coordCartesian;
+		if(coord.getClass().equals(SphericCoordinate.class)){
 			//this is an instance of SphericCoordinate so casting will work.
-			coordSpheric = (SphericCoordinate) coord; 
+			SphericCoordinate coordSpheric = (SphericCoordinate) coord;
+			//convert this Coordinate to CartesianCoordinate
+			coordCartesian = coordSpheric.toCartesian();
+		}else{
+			//this is an instance of CartesianCoordinate so casting will work.
+			coordCartesian = (CartesianCoordinate) coord; 
 		}
-		if (Double.doubleToLongBits(thisCoordSpheric.getLatitude()) != Double
-				.doubleToLongBits(coordSpheric.getLatitude())){
+		if (Double.doubleToLongBits(x) != Double.doubleToLongBits(coordCartesian.x)){
 			return false;
 		}
-		if (Double.doubleToLongBits(thisCoordSpheric.getLongitude()) != Double
-				.doubleToLongBits(coordSpheric.getLongitude())){
+		if (Double.doubleToLongBits(y) != Double.doubleToLongBits(coordCartesian.y)){
+			return false;
+		}
+		if (Double.doubleToLongBits(z) != Double.doubleToLongBits(coordCartesian.z)){
 			return false;
 		}
 		return true;
