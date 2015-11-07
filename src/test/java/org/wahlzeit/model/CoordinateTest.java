@@ -77,7 +77,43 @@ public class CoordinateTest {
 	
 	@Test
 	public void testIsEqualCartesianAndSpheric() {
+		double x = 3000;
+		double y = 609;
+		double z = -2320;
+		double lat = -37.4654812892161;
+		double lon = 11.4751130067251;
+		double radius = -2529.28830612825;
 
+		Coordinate equalSphericCoord = new SphericCoordinate(lat, lon, radius);
+		Coordinate equalCartesianCoord = new CartesianCoordinate(x, y, z);
+		
+		Coordinate nonequalSphericCoord1 = new SphericCoordinate(lat + 1 , lon, radius);
+		Coordinate nonequalSphericCoord2 = new SphericCoordinate(lat, lon + 1, radius);
+		Coordinate nonequalSphericCoord3 = new SphericCoordinate(lat, lon, radius + 1);
+		Coordinate nonequalCartesianCoord1 = new CartesianCoordinate(x + 1 , y, z);
+		Coordinate nonequalCartesianCoord2 = new CartesianCoordinate(x, y + 1, z);
+		Coordinate nonequalCartesianCoord3 = new CartesianCoordinate(x, y, z + 1);
+		
+		System.out.println(((SphericCoordinate) equalSphericCoord).getLatitude() + " "
+				+ ((SphericCoordinate) equalSphericCoord).getLongitude() + " " 
+				+ ((SphericCoordinate) equalSphericCoord).getRadius());
+
+		System.out.println(((SphericCoordinate) equalSphericCoord).toCartesian().getX() + " "
+				+ ((SphericCoordinate) equalSphericCoord).toCartesian().getY() + " "
+				+ ((SphericCoordinate) equalSphericCoord).toCartesian().getZ());
+
+		assertTrue(equalSphericCoord.isEqual(equalCartesianCoord));
+		assertTrue(equalCartesianCoord.isEqual(equalSphericCoord));
+			
+		assertFalse(equalCartesianCoord.isEqual(null));
+		assertFalse(equalCartesianCoord.isEqual(nonequalSphericCoord1));
+		assertFalse(equalCartesianCoord.isEqual(nonequalSphericCoord2));
+		assertFalse(equalCartesianCoord.isEqual(nonequalSphericCoord3));
+		
+		assertFalse(equalSphericCoord.isEqual(null));
+		assertFalse(equalSphericCoord.isEqual(nonequalCartesianCoord1));
+		assertFalse(equalSphericCoord.isEqual(nonequalCartesianCoord2));
+		assertFalse(equalSphericCoord.isEqual(nonequalCartesianCoord3));
 	}
 	
 

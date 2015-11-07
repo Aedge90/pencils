@@ -77,13 +77,13 @@ public class CartesianCoordinate extends DataObject implements Coordinate{
 			//this is an instance of CartesianCoordinate so casting will work.
 			coordCartesian = (CartesianCoordinate) coord; 
 		}
-		if (Double.doubleToLongBits(x) != Double.doubleToLongBits(coordCartesian.x)){
+		if (Math.abs(x-coordCartesian.x) > 0.1){
 			return false;
 		}
-		if (Double.doubleToLongBits(y) != Double.doubleToLongBits(coordCartesian.y)){
+		if (Math.abs(y-coordCartesian.y) > 0.1){
 			return false;
 		}
-		if (Double.doubleToLongBits(z) != Double.doubleToLongBits(coordCartesian.z)){
+		if (Math.abs(z-coordCartesian.z) > 0.1){
 			return false;
 		}
 		return true;

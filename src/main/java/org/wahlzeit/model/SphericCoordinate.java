@@ -130,16 +130,13 @@ public class SphericCoordinate extends DataObject implements Coordinate {
 			//this is an instance of SphericCoordinate so casting will work.
 			coordSpheric = (SphericCoordinate) coord; 
 		}
-		if (Double.doubleToLongBits(latitude) != Double
-				.doubleToLongBits(coordSpheric.latitude)){
+		if (Math.abs(latitude-coordSpheric.latitude) > 0.1){
 			return false;
 		}
-		if (Double.doubleToLongBits(longitude) != Double
-				.doubleToLongBits(coordSpheric.longitude)){
+		if (Math.abs(longitude-coordSpheric.longitude) > 0.1){
 			return false;
 		}
-		if (Double.doubleToLongBits(radius) != Double
-				.doubleToLongBits(coordSpheric.radius)){
+		if (Math.abs(radius-coordSpheric.radius) > 0.1){
 			return false;
 		}
 		return true;
@@ -150,9 +147,9 @@ public class SphericCoordinate extends DataObject implements Coordinate {
      * @methodtype conversion
      */
 	public CartesianCoordinate toCartesian(){
-		double x = Math.cos(latitude) * Math.cos(longitude);
-		double y = Math.cos(latitude) * Math.sin(longitude);
-		double z = Math.sin(latitude);
+		double x = radius * Math.cos(Math.toRadians(latitude)) * Math.cos(Math.toRadians(longitude));
+		double y = radius * Math.cos(Math.toRadians(latitude)) * Math.sin(Math.toRadians(longitude));
+		double z = radius * Math.sin(Math.toRadians(latitude));
 		return new CartesianCoordinate(x,y,z);
 	}
 	
