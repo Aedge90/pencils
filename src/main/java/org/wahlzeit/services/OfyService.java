@@ -45,7 +45,6 @@ public class OfyService {
 		factory().register(Location.class);
 		factory().register(SphericCoordinate.class);
 		factory().register(CartesianCoordinate.class);
-		factory().register(Coordinate.class);
 	}
 
 	public static Objectify ofy() {

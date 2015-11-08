@@ -1,5 +1,9 @@
 package org.wahlzeit.model;
 
+/**
+ * The Coordinate class represents a Coordinate, where a Photo was taken
+ */
+
 public interface Coordinate {
 	
 	 /**

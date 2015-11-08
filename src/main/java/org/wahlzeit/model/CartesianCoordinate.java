@@ -4,9 +4,15 @@ import org.wahlzeit.services.DataObject;
 import org.wahlzeit.services.ObjectManager;
 
 import com.google.appengine.api.datastore.Key;
+import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Parent;
 
+/**
+ * The CartesianCoordinate class stores a cartesian represenation of a coordinate
+ */
+
+@Entity
 public class CartesianCoordinate extends DataObject implements Coordinate{
 	
     @Id
@@ -40,6 +46,11 @@ public class CartesianCoordinate extends DataObject implements Coordinate{
 		this.z = z;
 	}
 
+	 /**
+     * Gets the distance between this Coordiante and coord in kilometers
+     * @throws IllegalArgumentException Thrown if coord is null
+     * @methodtype get
+     */
 	@Override
 	public double getDistance(Coordinate coord) {
 		if(coord == null){

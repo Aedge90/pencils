@@ -30,7 +30,7 @@ import com.googlecode.objectify.annotation.Parent;
 import org.wahlzeit.services.ObjectManager;
 
 /**
- * The Coordinate class represents a Coordinate, where a Photo was taken
+ * The SphericCoordinate class stores a spheric represenation of a coordinate
  */
 
 @Entity
