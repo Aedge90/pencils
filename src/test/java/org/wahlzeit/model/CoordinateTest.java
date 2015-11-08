@@ -108,6 +108,44 @@ public class CoordinateTest {
 		assertFalse(equalSphericCoord.isEqual(nonequalCartesianCoord3));
 	}
 	
+	@Test
+	public void testGetDistanceSpheric() {
+		double lat = 50.0;
+		double lon = -32.0;
+		double radius = 4500.0;
+		Coordinate sphericCoord1 = new SphericCoordinate(lat, lon, radius);
+		Coordinate sphericCoord2 = new SphericCoordinate(lat - 42 , lon + 80, radius);
+		
+		assertEquals(6083.5823081996, sphericCoord1.getDistance(sphericCoord2), 0.1);
+		assertEquals(6083.5823081996, sphericCoord2.getDistance(sphericCoord1), 0.1);
+	}	
+	
+	@Test
+	public void testGetDistanceCartesian() {
+		double x = -4500;
+		double y = 0;
+		double z = 0;
+		Coordinate cartesianCoord1 = new CartesianCoordinate(x, y, z);
+		Coordinate cartesianCoord2 = new CartesianCoordinate(0, 4500, 0);
+		
+		assertEquals(7068.583470577, cartesianCoord1.getDistance(cartesianCoord2), 0.1);
+		assertEquals(7068.583470577, cartesianCoord2.getDistance(cartesianCoord1), 0.1);
+	}	
+	
+	@Test
+	public void testGetDistanceCartesianAndSpheric() {
+		double lat = 50.0;
+		double lon = -32.0;
+		double radius = 4500.0;
+		Coordinate sphericCoord = new SphericCoordinate(lat, lon, radius);
+		Coordinate sphericCoord2 = new SphericCoordinate(lat - 42 , lon + 80, radius);
+		
+		//this works, as it was tested before
+		Coordinate cartesianCoord = ((SphericCoordinate)sphericCoord2).toCartesian();
+		
+		assertEquals(6083.5823081996, sphericCoord.getDistance(cartesianCoord), 0.1);
+		assertEquals(6083.5823081996, cartesianCoord.getDistance(sphericCoord), 0.1);
+	}	
 
 	@Test
 	public void testGetDistanceWithNullCartesianAndSpheric() {
