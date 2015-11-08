@@ -42,9 +42,6 @@ public class OfyService {
 		factory().register(PhotoCase.class);
 		factory().register(ImageWrapper.class);
 		factory().register(PencilPhoto.class);
-		factory().register(Location.class);
-		factory().register(SphericCoordinate.class);
-		factory().register(CartesianCoordinate.class);
 	}
 
 	public static Objectify ofy() {

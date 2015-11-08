@@ -12,13 +12,7 @@ import com.googlecode.objectify.annotation.Parent;
  * The CartesianCoordinate class stores a cartesian represenation of a coordinate
  */
 
-@Entity
 public class CartesianCoordinate extends DataObject implements Coordinate{
-	
-    @Id
-    String objectifyId = "idCartesianCoordinate";
-    @Parent
-    Key parent = ObjectManager.applicationRootKey;
 
 	/**
 	 * 

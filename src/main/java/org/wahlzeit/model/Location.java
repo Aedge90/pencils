@@ -1,20 +1,10 @@
 package org.wahlzeit.model;
 
-import org.wahlzeit.services.ObjectManager;
 
-import com.google.appengine.api.datastore.Key;
 import com.googlecode.objectify.annotation.Container;
-import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Parent;
 
-@Entity
+
 public class Location {
-	
-    @Id
-    String objectifyId = "idLocation";
-    @Parent
-    Key parent = ObjectManager.applicationRootKey;
 	
 	/**
 	 * The name of the Location
@@ -24,8 +14,8 @@ public class Location {
 	/**
 	 * The corresponding coordinate
 	 */
-	@Container
-	protected Coordinate coordinate;	
+	//@Container
+	//protected Coordinate coordinate;	
 
     public Location(String name, Coordinate coordinate) {
 
@@ -38,7 +28,7 @@ public class Location {
         }
 
         this.name = name;
-        this.coordinate = coordinate;
+        //this.coordinate = coordinate;
     }
 
     
@@ -52,7 +42,7 @@ public class Location {
    /**
     * @methodtype get
     */
-   public Coordinate getCoordinate() {
-       return this.coordinate;
-   }
+   //public Coordinate getCoordinate() {
+   //    return this.coordinate;
+   //}
 }

@@ -33,14 +33,8 @@ import org.wahlzeit.services.ObjectManager;
  * The SphericCoordinate class stores a spheric represenation of a coordinate
  */
 
-@Entity
 public class SphericCoordinate extends DataObject implements Coordinate {
-	
-    @Id
-    String objectifyId = "idShpericCoordinate";
-    @Parent
-    Key parent = ObjectManager.applicationRootKey;
-	
+
 	/** 
 	 * The radius of earth in kilometers
 	 */
