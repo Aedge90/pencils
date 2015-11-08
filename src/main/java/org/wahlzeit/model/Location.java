@@ -14,8 +14,8 @@ public class Location {
 	/**
 	 * The corresponding coordinate
 	 */
-	//@Container
-	//protected Coordinate coordinate;	
+	@Container
+	protected Coordinate coordinate;	
 
     public Location(String name, Coordinate coordinate) {
 
@@ -28,7 +28,7 @@ public class Location {
         }
 
         this.name = name;
-        //this.coordinate = coordinate;
+        this.coordinate = coordinate;
     }
 
     
@@ -42,7 +42,7 @@ public class Location {
    /**
     * @methodtype get
     */
-   //public Coordinate getCoordinate() {
-   //    return this.coordinate;
-   //}
+   public Coordinate getCoordinate() {
+       return this.coordinate;
+   }
 }
