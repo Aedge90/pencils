@@ -1,10 +1,12 @@
 package org.wahlzeit.model;
 
+import java.io.Serializable;
+
 /**
  * The Coordinate class represents a Coordinate, where a Photo was taken
  */
 
-public interface Coordinate {
+public interface Coordinate extends Serializable{
 	
 	 /**
      * Gets the distance between this Coordiante and coord in kilometers

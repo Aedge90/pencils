@@ -1,7 +1,6 @@
 package org.wahlzeit.model;
 
-
-import com.googlecode.objectify.annotation.Container;
+import com.googlecode.objectify.annotation.Serialize;
 
 
 public class Location {
@@ -14,7 +13,7 @@ public class Location {
 	/**
 	 * The corresponding coordinate
 	 */
-	@Container
+	@Serialize
 	protected Coordinate coordinate;	
 
     public Location(String name, Coordinate coordinate) {
