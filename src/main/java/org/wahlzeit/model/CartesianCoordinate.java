@@ -31,70 +31,6 @@ public class CartesianCoordinate extends AbstractCoordinate{
 		this.y = y;
 		this.z = z;
 	}
-
-	 /**
-     * Gets the distance between this Coordiante and coord in kilometers
-     * @throws IllegalArgumentException Thrown if coord is null
-     * @methodtype get
-     */
-	@Override
-	public double getDistance(Coordinate coord) {
-		if(coord == null){
-			throw new IllegalArgumentException("Argument was null");
-		}
-		SphericCoordinate thisCoordSpheric = this.toSpheric();
-		SphericCoordinate coordSpheric;
-		if(coord.getClass().equals(CartesianCoordinate.class)){
-			//this is an instance of CartesianCoordinate so casting will work.
-			CartesianCoordinate coordCartesian = (CartesianCoordinate) coord;
-			//convert this Coordinate to SphericCoordinate
-			coordSpheric = coordCartesian.toSpheric();
-		}else{
-			//this is an instance of SphericCoordinate so casting will work.
-			coordSpheric = (SphericCoordinate) coord; 
-		}
-		return thisCoordSpheric.getRadius() * Math.acos(
-				(Math.sin(Math.toRadians(thisCoordSpheric.getLatitude())) * Math.sin(Math.toRadians(coordSpheric.getLatitude()))) +
-				(Math.cos(Math.toRadians(thisCoordSpheric.getLatitude())) * Math.cos(Math.toRadians(coordSpheric.getLatitude())) *
-						Math.cos(Math.toRadians(Math.abs(coordSpheric.getLongitude() - thisCoordSpheric.getLongitude())))) 
-				) ;
-	}
-	
-	@Override
-	public boolean isEqual(Coordinate coord) {
-		if (coord == null)
-			return false;
-		CartesianCoordinate coordCartesian;
-		if(coord.getClass().equals(SphericCoordinate.class)){
-			//this is an instance of SphericCoordinate so casting will work.
-			SphericCoordinate coordSpheric = (SphericCoordinate) coord;
-			//convert this Coordinate to CartesianCoordinate
-			coordCartesian = coordSpheric.toCartesian();
-		}else{
-			//this is an instance of CartesianCoordinate so casting will work.
-			coordCartesian = (CartesianCoordinate) coord; 
-		}
-		if (Math.abs(x-coordCartesian.x) > 0.1){
-			return false;
-		}
-		if (Math.abs(y-coordCartesian.y) > 0.1){
-			return false;
-		}
-		if (Math.abs(z-coordCartesian.z) > 0.1){
-			return false;
-		}
-		return true;
-	}
-	
-	/**
-	 * Converts cartesian representation of coordinates to spheric representation
-     * @methodtype conversion
-     */
-	public SphericCoordinate toSpheric(){
-		double latRad = Math.atan2(z, Math.sqrt(x*x + y*y));
-		double lonRad = Math.atan2(y, x);
-		return new SphericCoordinate(Math.toDegrees(latRad), Math.toDegrees(lonRad), Math.sqrt(x*x + y*y + z*z));
-	}
 	
 	/**
 	 * @return the x
@@ -149,6 +85,33 @@ public class CartesianCoordinate extends AbstractCoordinate{
 		if (Double.doubleToLongBits(z) != Double.doubleToLongBits(other.z))
 			return false;
 		return true;
+	}
+
+	 /**
+	 * @return latitude in degrees
+     * @methodtype get
+     */
+	@Override
+	public double getLatitude() {
+		return Math.toDegrees(Math.atan2(z, Math.sqrt(x*x + y*y)));
+	}
+
+	 /**
+	 * @return longitude in degrees
+     * @methodtype get
+     */
+	@Override
+	public double getLongitude() {
+		return Math.toDegrees(Math.atan2(y, x));
+	}
+
+	 /**
+	  * @return radius in km
+     * @methodtype get
+     */
+	@Override
+	public double getRadius() {
+		return Math.sqrt(x*x + y*y + z*z);
 	}
 	
 	
