@@ -20,20 +20,11 @@
 
 package org.wahlzeit.model;
 
-import org.wahlzeit.services.DataObject;
-
-import com.googlecode.objectify.annotation.Entity;
-import com.google.appengine.api.datastore.Key;
-import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Parent;
-
-import org.wahlzeit.services.ObjectManager;
-
 /**
  * The SphericCoordinate class stores a spheric represenation of a coordinate
  */
 
-public class SphericCoordinate extends DataObject implements Coordinate {
+public class SphericCoordinate extends AbstractCoordinate{
 
 	/** 
 	 * The radius of earth in kilometers
