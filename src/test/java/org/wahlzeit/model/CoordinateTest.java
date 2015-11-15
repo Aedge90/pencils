@@ -138,14 +138,7 @@ public class CoordinateTest {
 		double lon = -32.0;
 		double radius = 4500.0;
 		Coordinate sphericCoord = new SphericCoordinate(lat, lon, radius);
-		Coordinate sphericCoord2 = new SphericCoordinate(lat - 42 , lon + 80, radius);
-		
 
-        double x = sphericCoord2.getRadius() * Math.cos(Math.toRadians(sphericCoord2.getLatitude())) * Math.cos(Math.toRadians(sphericCoord2.getLongitude()));
-              double y = sphericCoord2.getRadius() * Math.cos(Math.toRadians(sphericCoord2.getLatitude())) * Math.sin(Math.toRadians(sphericCoord2.getLongitude()));
-             double z = sphericCoord2.getRadius() * Math.sin(Math.toRadians(sphericCoord2.getLatitude()));
-
-         System.out.println(x + " " + y + " " + z);
 		Coordinate cartesianCoord = new CartesianCoordinate(2981.7840298268816, 3311.606660043558, 626.2789543202945);
 		
 		assertEquals(6083.5823081996, sphericCoord.getDistance(cartesianCoord), 0.1);

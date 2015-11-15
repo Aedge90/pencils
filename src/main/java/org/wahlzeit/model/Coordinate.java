@@ -9,33 +9,33 @@ import java.io.Serializable;
 
 public interface Coordinate extends Serializable{
 	
-	 /**
-	 * @return latitude in degrees
+	/**
+	* @return latitude in degrees
     * @methodtype get
     */
 	public abstract double getLatitude();
 	
-	 /**
-	 * @return longitude in degrees
+	/**
+	* @return longitude in degrees
     * @methodtype get
     */
 	public abstract double getLongitude();
 	
 	/**
 	* @return radius in km
-   * @methodtype get
-   */
+	* @methodtype get
+	*/
 	public abstract double getRadius();
 	
-	 /**
-     * Gets the distance between this Coordiante and coord in kilometers
-     * @methodtype get
-     */
+	/**
+	* Gets the distance between this Coordiante and coord in kilometers
+	* @methodtype get
+	*/
 	public double getDistance(Coordinate coord);
 	
 	/**
-	 * @methodtype query
-	 */
+	* @methodtype query
+	*/
 	public boolean isEqual(Coordinate coord);
 
 }

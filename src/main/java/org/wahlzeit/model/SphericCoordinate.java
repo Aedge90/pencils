@@ -75,24 +75,24 @@ public class SphericCoordinate extends AbstractCoordinate{
 	
 	/**
 	* @return latitude in degrees
-    * @methodtype get
-    */
+	* @methodtype get
+	*/
 	public double getLatitude(){
 		return latitude;
 	}
 	
 	/**
 	* @return longitude in degrees
-    * @methodtype get
-    */
+	* @methodtype get
+	*/
 	public double getLongitude(){
 		return longitude;
 	}
 	
 	/**
 	* @return radius in km
-    * @methodtype get
-    */
+	* @methodtype get
+	*/
 	public double getRadius(){
 		return radius;
 	}
