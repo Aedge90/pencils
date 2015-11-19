@@ -52,7 +52,30 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	public double getZ() {
 		return z;
 	}
-
+	
+	/**
+	* @param x
+	* @methodtype set
+	*/
+	public void setLatitude(double x){
+		this.x = x;
+	}
+	
+	/**
+	* @param y
+	* @methodtype set
+	*/
+	public void setLongitude(double y){
+		this.y = y;
+	}
+	
+	/**
+	* @param z
+	* @methodtype set
+	*/
+	public void setRadius(double z){
+		this.z = z;
+	}
 
 	@Override
 	public int hashCode() {
@@ -93,7 +116,10 @@ public class CartesianCoordinate extends AbstractCoordinate{
      */
 	@Override
 	public double getLatitude() {
-		return Math.toDegrees(Math.atan2(z, Math.sqrt(x*x + y*y)));
+		double latitude = Math.toDegrees(Math.atan2(z, Math.sqrt(x*x + y*y)));
+		//postcondition
+		assertInRangeLatitude(latitude);
+		return latitude;
 	}
 
 	 /**
@@ -102,7 +128,10 @@ public class CartesianCoordinate extends AbstractCoordinate{
      */
 	@Override
 	public double getLongitude() {
-		return Math.toDegrees(Math.atan2(y, x));
+		double longitude = Math.toDegrees(Math.atan2(y, x));
+		//postcondition
+		assertInRangeLongitude(longitude);
+		return longitude;
 	}
 
 	 /**
@@ -111,10 +140,11 @@ public class CartesianCoordinate extends AbstractCoordinate{
      */
 	@Override
 	public double getRadius() {
-		return Math.sqrt(x*x + y*y + z*z);
+		double radius = Math.sqrt(x*x + y*y + z*z);
+		//postcondition
+		assertInRangeRadius(radius);
+		return radius;
 	}
-	
-	
 	
 
 }

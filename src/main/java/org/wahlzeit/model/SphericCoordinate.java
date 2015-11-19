@@ -40,13 +40,13 @@ public class SphericCoordinate extends AbstractCoordinate{
 	 * Latitude in degrees
 	 * Valid values: -90 (south pole) to 90 (north pole)
 	 */
-	private final double latitude;
+	private double latitude;
 	
 	/**
 	 * Longitude in degrees
 	 * Valid values: -180 (180 not included) to +180 (+ = Ost, - = West, 0 = Greenwich)
 	 */
-	private final double longitude;
+	private double longitude;
 	
 	/**
 	 * Radius in km. Default is Earth radius (6371 km)
@@ -59,15 +59,10 @@ public class SphericCoordinate extends AbstractCoordinate{
 	}
 	
 	public SphericCoordinate(double latitude, double longitude, double radius){
-		if (latitude > 90 || latitude < -90) {
-			throw new IllegalArgumentException("Latitude value is not valid. Range:[-90,90]");
-		}
-		if (longitude > 180 || longitude <= -180) {
-			throw new IllegalArgumentException("Longitude value is not valid. Range:[-180,180]");	
-		}
-		if (radius < 0) {
-			throw new IllegalArgumentException("Radius value is not valid. Range:[0,infinity[");	
-		}
+		//preconditions
+		assertInRangeLatitude(latitude);
+		assertInRangeLongitude(longitude);
+		assertInRangeRadius(radius);
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.radius = radius;
@@ -95,6 +90,36 @@ public class SphericCoordinate extends AbstractCoordinate{
 	*/
 	public double getRadius(){
 		return radius;
+	}
+	
+	/**
+	* @param latitude in degrees
+	* @methodtype set
+	*/
+	public void setLatitude(double latitude){
+		//precondition
+		assertInRangeLatitude(latitude);
+		this.latitude = latitude;
+	}
+	
+	/**
+	* @param longitude in degrees
+	* @methodtype set
+	*/
+	public void setLongitude(double longitude){
+		//precondition
+		assertInRangeLongitude(longitude);
+		this.longitude = longitude;
+	}
+	
+	/**
+	* @param radius in km
+	* @methodtype set
+	*/
+	public void setRadius(double radius){
+		//precondition
+		assertInRangeRadius(radius);
+		this.radius = radius;
 	}
 
 	@Override
