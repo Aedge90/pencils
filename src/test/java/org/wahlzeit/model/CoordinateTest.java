@@ -14,7 +14,7 @@ import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestC
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 /**
- * Test class for Coordinate class.
+ * Test class for Coordinate interface.
  */
 public class CoordinateTest {
 	
@@ -36,47 +36,7 @@ public class CoordinateTest {
 	}
 	
 	@Test
-	public void testIsEqualSpheric() {
-		double lat = 42.0;
-		double lon = 63.8;
-		double radius = 36.453;
-		SphericCoordinate equalSphericCoord1 = new SphericCoordinate(lat, lon, radius);
-		SphericCoordinate equalSphericCoord2 = new SphericCoordinate(lat, lon, radius);
-		SphericCoordinate nonequalSphericCoord1 = new SphericCoordinate(lat + 1 , lon, radius);
-		SphericCoordinate nonequalSphericCoord2 = new SphericCoordinate(lat, lon + 1, radius);
-		SphericCoordinate nonequalSphericCoord3 = new SphericCoordinate(lat, lon, radius + 1);
-		
-		assertTrue(equalSphericCoord1.isEqual(equalSphericCoord2));
-		assertTrue(equalSphericCoord2.isEqual(equalSphericCoord1));
-			
-		assertFalse(equalSphericCoord1.isEqual(null));
-		assertFalse(equalSphericCoord1.isEqual(nonequalSphericCoord1));
-		assertFalse(equalSphericCoord1.isEqual(nonequalSphericCoord2));
-		assertFalse(equalSphericCoord1.isEqual(nonequalSphericCoord3));
-	}
-	
-	@Test
-	public void testIsEqualCartesian() {
-		double x = 42.0;
-		double y = 63.8;
-		double z = 36.453;
-		CartesianCoordinate equalCartesianCoord1 = new CartesianCoordinate(x, y, z);
-		CartesianCoordinate equalCartesianCoord2 = new CartesianCoordinate(x, y, z);
-		CartesianCoordinate nonequalCartesianCoord1 = new CartesianCoordinate(x + 1 , y, z);
-		CartesianCoordinate nonequalCartesianCoord2 = new CartesianCoordinate(x, y + 1, z);
-		CartesianCoordinate nonequalCartesianCoord3 = new CartesianCoordinate(x, y, z + 1);
-		
-		assertTrue(equalCartesianCoord1.isEqual(equalCartesianCoord2));
-		assertTrue(equalCartesianCoord2.isEqual(equalCartesianCoord1));
-			
-		assertFalse(equalCartesianCoord1.isEqual(null));
-		assertFalse(equalCartesianCoord1.isEqual(nonequalCartesianCoord1));
-		assertFalse(equalCartesianCoord1.isEqual(nonequalCartesianCoord2));
-		assertFalse(equalCartesianCoord1.isEqual(nonequalCartesianCoord3));
-	}
-	
-	@Test
-	public void testIsEqualCartesianAndSpheric() {
+	public void testIsEqual() {
 		double x = 2616.5280574416615;
 		double y = 1764.8704593015705;
 		double z = -2648.2849519085416;
@@ -106,34 +66,10 @@ public class CoordinateTest {
 		assertFalse(equalSphericCoord.isEqual(nonequalCartesianCoord1));
 		assertFalse(equalSphericCoord.isEqual(nonequalCartesianCoord2));
 		assertFalse(equalSphericCoord.isEqual(nonequalCartesianCoord3));
-	}
-	
-	@Test
-	public void testGetDistanceSpheric() {
-		double lat = 50.0;
-		double lon = -32.0;
-		double radius = 4500.0;
-		Coordinate sphericCoord1 = new SphericCoordinate(lat, lon, radius);
-		Coordinate sphericCoord2 = new SphericCoordinate(lat - 42 , lon + 80, radius);
-		
-		assertEquals(6083.5823081996, sphericCoord1.getDistance(sphericCoord2), 0.1);
-		assertEquals(6083.5823081996, sphericCoord2.getDistance(sphericCoord1), 0.1);
 	}	
 	
 	@Test
-	public void testGetDistanceCartesian() {
-		double x = -4500;
-		double y = 0;
-		double z = 0;
-		Coordinate cartesianCoord1 = new CartesianCoordinate(x, y, z);
-		Coordinate cartesianCoord2 = new CartesianCoordinate(0, 4500, 0);
-		
-		assertEquals(7068.583470577, cartesianCoord1.getDistance(cartesianCoord2), 0.1);
-		assertEquals(7068.583470577, cartesianCoord2.getDistance(cartesianCoord1), 0.1);
-	}	
-	
-	@Test
-	public void testGetDistanceCartesianAndSpheric() {
+	public void testGetDistance() {
 		double lat = 50.0;
 		double lon = -32.0;
 		double radius = 4500.0;
@@ -144,15 +80,5 @@ public class CoordinateTest {
 		assertEquals(6083.5823081996, sphericCoord.getDistance(cartesianCoord), 0.1);
 		assertEquals(6083.5823081996, cartesianCoord.getDistance(sphericCoord), 0.1);
 	}	
-
-	@Test
-	public void testGetDistanceWithNullCartesianAndSpheric() {
-		CartesianCoordinate cartesianCoord = new CartesianCoordinate(3, 4, 1);
-		SphericCoordinate sphericCoord = new SphericCoordinate(-1, 4);
-	    exception.expect(IllegalArgumentException.class);
-	    cartesianCoord.getDistance(null);
-	    exception.expect(IllegalArgumentException.class);
-	    sphericCoord.getDistance(null);
-	}
 
 }
