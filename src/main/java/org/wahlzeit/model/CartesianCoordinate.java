@@ -57,7 +57,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	* @param x
 	* @methodtype set
 	*/
-	public void setLatitude(double x){
+	public void setX(double x){
 		this.x = x;
 	}
 	
@@ -65,7 +65,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	* @param y
 	* @methodtype set
 	*/
-	public void setLongitude(double y){
+	public void setY(double y){
 		this.y = y;
 	}
 	
@@ -73,7 +73,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	* @param z
 	* @methodtype set
 	*/
-	public void setRadius(double z){
+	public void setZ(double z){
 		this.z = z;
 	}
 
