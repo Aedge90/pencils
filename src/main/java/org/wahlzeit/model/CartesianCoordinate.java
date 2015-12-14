@@ -14,24 +14,39 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	/** 
 	 * x in kilometers
 	 */
-	double x;
+	private double x;
 
 	/** 
 	 * y in kilometers
 	 */
-	double y;
+	private double y;
 	
 	/** 
 	 * z in kilometers
 	 */
-	double z;
+	private double z;
 	
-	public CartesianCoordinate(double x, double y, double z) {
+	private CartesianCoordinate(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
 	
+	public static CartesianCoordinate getCoordinate(double x, double y, double z) {
+		String coordString = "cartesian" + x + "" + y + "" + z;
+		CartesianCoordinate result = (CartesianCoordinate) allCoordinates.get(coordString);
+		if (result == null) {
+			synchronized (CartesianCoordinate.class) {
+				result = (CartesianCoordinate) allCoordinates.get(coordString);
+				if (result == null) {
+					result = new CartesianCoordinate(x,y,z);
+					allCoordinates.put(coordString, result);
+				}
+			}
+		}
+		return result;
+	}
+
 	/**
 	 * @return the x
 	 */
@@ -57,24 +72,24 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	* @param x
 	* @methodtype set
 	*/
-	public void setX(double x){
-		this.x = x;
+	public CartesianCoordinate setX(double x){
+		return new CartesianCoordinate(x, this.y, this.z);
 	}
 	
 	/**
 	* @param y
 	* @methodtype set
 	*/
-	public void setY(double y){
-		this.y = y;
+	public CartesianCoordinate setY(double y){
+		return new CartesianCoordinate(this.x, y, this.z);
 	}
 	
 	/**
 	* @param z
 	* @methodtype set
 	*/
-	public void setZ(double z){
-		this.z = z;
+	public CartesianCoordinate setZ(double z){
+		return new CartesianCoordinate(this.x, this.y, z);
 	}
 
 	@Override
@@ -94,20 +109,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		CartesianCoordinate other = (CartesianCoordinate) obj;
-		if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x))
-			return false;
-		if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y))
-			return false;
-		if (Double.doubleToLongBits(z) != Double.doubleToLongBits(other.z))
-			return false;
-		return true;
+		return this == obj;
 	}
 
 	 /**

@@ -54,11 +54,7 @@ public class SphericCoordinate extends AbstractCoordinate{
 	private double radius;
 	
 	
-	public SphericCoordinate(double latitude, double longitude){
-		this(latitude, longitude, EARTH_RADIUS);
-	}
-	
-	public SphericCoordinate(double latitude, double longitude, double radius){
+	private SphericCoordinate(double latitude, double longitude, double radius){
 		//preconditions
 		assertInRangeLatitude(latitude);
 		assertInRangeLongitude(longitude);
@@ -66,6 +62,25 @@ public class SphericCoordinate extends AbstractCoordinate{
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.radius = radius;
+	}
+	
+	public static SphericCoordinate getCoordinate(double latitude, double longitude) {
+		return getCoordinate(latitude, longitude, EARTH_RADIUS);
+	}
+	
+	public static SphericCoordinate getCoordinate(double latitude, double longitude, double radius) {
+		String coordString = "spheric" + latitude + "" + longitude + "" + radius;
+		SphericCoordinate result = (SphericCoordinate) allCoordinates.get(coordString);
+		if (result == null) {
+			synchronized (SphericCoordinate.class) {
+				result = (SphericCoordinate) allCoordinates.get(coordString);
+				if (result == null) {
+					result = new SphericCoordinate(latitude, longitude, radius);
+					allCoordinates.put(coordString, result);
+				}
+			}
+		}
+		return result;
 	}
 	
 	/**
@@ -96,30 +111,30 @@ public class SphericCoordinate extends AbstractCoordinate{
 	* @param latitude in degrees
 	* @methodtype set
 	*/
-	public void setLatitude(double latitude){
+	public SphericCoordinate setLatitude(double latitude){
 		//precondition
 		assertInRangeLatitude(latitude);
-		this.latitude = latitude;
+		return new SphericCoordinate(latitude, this.longitude, this.radius);
 	}
 	
 	/**
 	* @param longitude in degrees
 	* @methodtype set
 	*/
-	public void setLongitude(double longitude){
+	public SphericCoordinate setLongitude(double longitude){
 		//precondition
 		assertInRangeLongitude(longitude);
-		this.longitude = longitude;
+		return new SphericCoordinate(this.latitude, longitude, this.radius);
 	}
 	
 	/**
 	* @param radius in km
 	* @methodtype set
 	*/
-	public void setRadius(double radius){
+	public SphericCoordinate setRadius(double radius){
 		//precondition
 		assertInRangeRadius(radius);
-		this.radius = radius;
+		return new SphericCoordinate(this.latitude, this.longitude, radius);
 	}
 
 	@Override
@@ -138,23 +153,7 @@ public class SphericCoordinate extends AbstractCoordinate{
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		SphericCoordinate other = (SphericCoordinate) obj;
-		if (Double.doubleToLongBits(latitude) != Double
-				.doubleToLongBits(other.latitude))
-			return false;
-		if (Double.doubleToLongBits(longitude) != Double
-				.doubleToLongBits(other.longitude))
-			return false;
-		if (Double.doubleToLongBits(radius) != Double
-				.doubleToLongBits(other.radius))
-			return false;
-		return true;
+		return this == obj;
 	}
 
 

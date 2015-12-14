@@ -44,15 +44,15 @@ public class CoordinateTest {
 		double lon = 34.0;
 		double radius = 4120.0;
 
-		Coordinate equalSphericCoord = new SphericCoordinate(lat, lon, radius);
-		Coordinate equalCartesianCoord = new CartesianCoordinate(x, y, z);
+		Coordinate equalSphericCoord = SphericCoordinate.getCoordinate(lat, lon, radius);
+		Coordinate equalCartesianCoord = CartesianCoordinate.getCoordinate(x, y, z);
 		
-		Coordinate nonequalSphericCoord1 = new SphericCoordinate(lat + 1 , lon, radius);
-		Coordinate nonequalSphericCoord2 = new SphericCoordinate(lat, lon + 1, radius);
-		Coordinate nonequalSphericCoord3 = new SphericCoordinate(lat, lon, radius + 1);
-		Coordinate nonequalCartesianCoord1 = new CartesianCoordinate(x + 1 , y, z);
-		Coordinate nonequalCartesianCoord2 = new CartesianCoordinate(x, y + 1, z);
-		Coordinate nonequalCartesianCoord3 = new CartesianCoordinate(x, y, z + 1);
+		Coordinate nonequalSphericCoord1 = SphericCoordinate.getCoordinate(lat + 1 , lon, radius);
+		Coordinate nonequalSphericCoord2 = SphericCoordinate.getCoordinate(lat, lon + 1, radius);
+		Coordinate nonequalSphericCoord3 = SphericCoordinate.getCoordinate(lat, lon, radius + 1);
+		Coordinate nonequalCartesianCoord1 = CartesianCoordinate.getCoordinate(x + 1 , y, z);
+		Coordinate nonequalCartesianCoord2 = CartesianCoordinate.getCoordinate(x, y + 1, z);
+		Coordinate nonequalCartesianCoord3 = CartesianCoordinate.getCoordinate(x, y, z + 1);
 
 		assertTrue(equalSphericCoord.isEqual(equalCartesianCoord));
 		assertTrue(equalCartesianCoord.isEqual(equalSphericCoord));
@@ -73,9 +73,9 @@ public class CoordinateTest {
 		double lat = 50.0;
 		double lon = -32.0;
 		double radius = 4500.0;
-		Coordinate sphericCoord = new SphericCoordinate(lat, lon, radius);
+		Coordinate sphericCoord = SphericCoordinate.getCoordinate(lat, lon, radius);
 
-		Coordinate cartesianCoord = new CartesianCoordinate(2981.7840298268816, 3311.606660043558, 626.2789543202945);
+		Coordinate cartesianCoord = CartesianCoordinate.getCoordinate(2981.7840298268816, 3311.606660043558, 626.2789543202945);
 		
 		assertEquals(6083.5823081996, sphericCoord.getDistance(cartesianCoord), 0.1);
 		assertEquals(6083.5823081996, cartesianCoord.getDistance(sphericCoord), 0.1);

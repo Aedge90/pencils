@@ -1,9 +1,18 @@
 package org.wahlzeit.model;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.SortedMap;
+
 /**
  * The AbstractCoordinate class
  */
 public abstract class AbstractCoordinate implements Coordinate{
+	
+	/**
+	 * Map that contains all Coordinate Value Objects
+	 */
+	static HashMap<String, Coordinate> allCoordinates = new HashMap<String, Coordinate>();
 	
 	 /**
 	 * 

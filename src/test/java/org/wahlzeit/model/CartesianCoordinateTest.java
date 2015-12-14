@@ -28,8 +28,8 @@ public class CartesianCoordinateTest {
 		double x = -4500;
 		double y = 0;
 		double z = 0;
-		CartesianCoordinate cartesianCoord1 = new CartesianCoordinate(x, y, z);
-		CartesianCoordinate cartesianCoord2 = new CartesianCoordinate(0, 4500, 0);
+		CartesianCoordinate cartesianCoord1 = CartesianCoordinate.getCoordinate(x, y, z);
+		CartesianCoordinate cartesianCoord2 = CartesianCoordinate.getCoordinate(0, 4500, 0);
 		
 		assertEquals(7068.583470577, cartesianCoord1.getDistance(cartesianCoord2), 0.1);
 		assertEquals(7068.583470577, cartesianCoord2.getDistance(cartesianCoord1), 0.1);
@@ -40,11 +40,11 @@ public class CartesianCoordinateTest {
 		double x = 42.0;
 		double y = 63.8;
 		double z = 36.453;
-		CartesianCoordinate equalCartesianCoord1 = new CartesianCoordinate(x, y, z);
-		CartesianCoordinate equalCartesianCoord2 = new CartesianCoordinate(x, y, z);
-		CartesianCoordinate nonequalCartesianCoord1 = new CartesianCoordinate(x + 1 , y, z);
-		CartesianCoordinate nonequalCartesianCoord2 = new CartesianCoordinate(x, y + 1, z);
-		CartesianCoordinate nonequalCartesianCoord3 = new CartesianCoordinate(x, y, z + 1);
+		CartesianCoordinate equalCartesianCoord1 = CartesianCoordinate.getCoordinate(x, y, z);
+		CartesianCoordinate equalCartesianCoord2 = CartesianCoordinate.getCoordinate(x, y, z);
+		CartesianCoordinate nonequalCartesianCoord1 = CartesianCoordinate.getCoordinate(x + 1 , y, z);
+		CartesianCoordinate nonequalCartesianCoord2 = CartesianCoordinate.getCoordinate(x, y + 1, z);
+		CartesianCoordinate nonequalCartesianCoord3 = CartesianCoordinate.getCoordinate(x, y, z + 1);
 		
 		assertTrue(equalCartesianCoord1.isEqual(equalCartesianCoord2));
 		assertTrue(equalCartesianCoord2.isEqual(equalCartesianCoord1));
@@ -61,7 +61,7 @@ public class CartesianCoordinateTest {
 			for(double i = -50000; i<50000; i += 10000){
 				for(double j = -50000; j<50000; j += 10000){
 					for(double k = -50000; k<50000; k += 10000){
-						CartesianCoordinate coord = new CartesianCoordinate(i, j, k);
+						CartesianCoordinate coord = CartesianCoordinate.getCoordinate(i, j, k);
 						coord.getLatitude();
 						coord.getLongitude();
 						coord.getRadius();
@@ -75,7 +75,7 @@ public class CartesianCoordinateTest {
 	
 	@Test
 	public void testGetDistanceWithNull() {
-		CartesianCoordinate cartesianCoord = new CartesianCoordinate(3, 4, 1);
+		CartesianCoordinate cartesianCoord = CartesianCoordinate.getCoordinate(3, 4, 1);
 	    exception.expect(IllegalArgumentException.class);
 	    cartesianCoord.getDistance(null);
 	}

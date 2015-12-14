@@ -28,8 +28,8 @@ public class SphericCoordinateTest {
 		double lat = 50.0;
 		double lon = -32.0;
 		double radius = 4500.0;
-		SphericCoordinate sphericCoord1 = new SphericCoordinate(lat, lon, radius);
-		SphericCoordinate sphericCoord2 = new SphericCoordinate(lat - 42 , lon + 80, radius);
+		SphericCoordinate sphericCoord1 = SphericCoordinate.getCoordinate(lat, lon, radius);
+		SphericCoordinate sphericCoord2 = SphericCoordinate.getCoordinate(lat - 42 , lon + 80, radius);
 		
 		assertEquals(6083.5823081996, sphericCoord1.getDistance(sphericCoord2), 0.1);
 		assertEquals(6083.5823081996, sphericCoord2.getDistance(sphericCoord1), 0.1);
@@ -40,11 +40,11 @@ public class SphericCoordinateTest {
 		double lat = 42.0;
 		double lon = 63.8;
 		double radius = 36.453;
-		SphericCoordinate equalSphericCoord1 = new SphericCoordinate(lat, lon, radius);
-		SphericCoordinate equalSphericCoord2 = new SphericCoordinate(lat, lon, radius);
-		SphericCoordinate nonequalSphericCoord1 = new SphericCoordinate(lat + 1 , lon, radius);
-		SphericCoordinate nonequalSphericCoord2 = new SphericCoordinate(lat, lon + 1, radius);
-		SphericCoordinate nonequalSphericCoord3 = new SphericCoordinate(lat, lon, radius + 1);
+		SphericCoordinate equalSphericCoord1 = SphericCoordinate.getCoordinate(lat, lon, radius);
+		SphericCoordinate equalSphericCoord2 = SphericCoordinate.getCoordinate(lat, lon, radius);
+		SphericCoordinate nonequalSphericCoord1 = SphericCoordinate.getCoordinate(lat + 1 , lon, radius);
+		SphericCoordinate nonequalSphericCoord2 = SphericCoordinate.getCoordinate(lat, lon + 1, radius);
+		SphericCoordinate nonequalSphericCoord3 = SphericCoordinate.getCoordinate(lat, lon, radius + 1);
 		
 		assertTrue(equalSphericCoord1.isEqual(equalSphericCoord2));
 		assertTrue(equalSphericCoord2.isEqual(equalSphericCoord1));
@@ -57,7 +57,7 @@ public class SphericCoordinateTest {
 	
 	@Test
 	public void testSetLatLonRadOutOfBounds() {
-		SphericCoordinate sphericCoord = new SphericCoordinate(-1, 4);
+		SphericCoordinate sphericCoord = SphericCoordinate.getCoordinate(-1, 4);
 		try {
 			sphericCoord.setLatitude(-100);
 			fail("Should have thrown an IllegalArgumentException!");
@@ -82,15 +82,15 @@ public class SphericCoordinateTest {
 	
 	@Test
 	public void testGetDistanceWithNull() {
-		SphericCoordinate sphericCoord = new SphericCoordinate(-1, 4);
+		SphericCoordinate sphericCoord = SphericCoordinate.getCoordinate(-1, 4);
 	    exception.expect(IllegalArgumentException.class);
 	    sphericCoord.getDistance(null);
 	}
 
 	@Test
 	public void testGetDistanceDifferentRadius(){
-		SphericCoordinate sphericCoord1 = new SphericCoordinate(-1, 4,100);
-		SphericCoordinate sphericCoord2 = new SphericCoordinate(-1, 4,4354);
+		SphericCoordinate sphericCoord1 = SphericCoordinate.getCoordinate(-1, 4,100);
+		SphericCoordinate sphericCoord2 = SphericCoordinate.getCoordinate(-1, 4,4354);
 	    exception.expect(IllegalArgumentException.class);
 	    sphericCoord1.getDistance(sphericCoord2);
 	}
