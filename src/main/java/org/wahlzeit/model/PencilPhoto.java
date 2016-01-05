@@ -9,12 +9,8 @@ public class PencilPhoto extends Photo {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	private String typeOfPencil;
 	
-	private String pencilThickness;
-	
-	private String pencilColor;
+	private Pencil pencil;
 	
 	
 	public PencilPhoto() {
@@ -24,47 +20,19 @@ public class PencilPhoto extends Photo {
 	public PencilPhoto(PhotoId id) {
 		super(id);
 	}
-
-	/**
-	 * @methodtype set
-	 */
-	void setTypeOfPencil (String type){
-		this.typeOfPencil = type;
-	}
 	
 	/**
 	 * @methodtype set
 	 */
-	void setPencilThickness(String thickness){
-		this.pencilThickness = thickness;
-	}
-	
-	/**
-	 * @methodtype set
-	 */
-	void setPencilColor(String color){
-		this.pencilColor = color;
+	void setPencil(Pencil pencil){
+		this.pencil = pencil;
 	}
 	
 	/**
 	 * @methodtype get
 	 */
-	String getTypeOfPencil (){
-		return this.typeOfPencil;
-	}
-	
-	/**
-	 * @methodtype get
-	 */
-	String getPencilThickness(){
-		return this.pencilThickness;
-	}
-	
-	/**
-	 * @methodtype get
-	 */
-	String getPencilColor(){
-		return this.pencilColor;
+	Pencil getPencil(){
+		return this.pencil;
 	}
 
 }
